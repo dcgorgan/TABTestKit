@@ -35,6 +35,20 @@ jobs:
       - name: Test on iPhone 11
         run: xcodebuild test-without-building -workspace Example/TABTestKit.xcworkspace -scheme TABTestKit-Example -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.6'
 
+  test_xcode12_ios14:
+    name: Run tests on Xcode 12 and iOS 14
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Set Xcode version to 12 beta
+        run: sudo xcode-select -switch /Applications/Xcode_12_beta.app
+      - name: Build for testing
+        run: xcodebuild build-for-testing -workspace Example/TABTestKit.xcworkspace -scheme TABTestKit-Example -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.0'
+      - name: Test on iPhone 11
+        run: xcodebuild test-without-building -workspace Example/TABTestKit.xcworkspace -scheme TABTestKit-Example -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.0'
+
   build_spm:
     name: Ensure Swift Package Manager builds
     runs-on: macOS-latest
